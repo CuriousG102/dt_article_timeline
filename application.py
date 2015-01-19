@@ -1,5 +1,5 @@
 import copytext
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -9,7 +9,7 @@ def make_emeddable():
 	context = {
 		'COPY': copytext.Copy('copy_sheet/events.xlsx')
 	}
-	for row in sheet:
-		events
 	return render_template('timeline.html', **context)
-	
+
+if __name__ == '__main__':
+	app.run()

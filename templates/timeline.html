@@ -1,3 +1,4 @@
+{% raw %}
 <!DOCTYPE html>
 <html>
 <body>
@@ -69,7 +70,7 @@
       this.followDate=new Date();
       this.imageLink="";
     };
-
+{% endraw %}
     //Populate events array
     var events = []
     {% for row in COPY.Events %}
@@ -94,6 +95,7 @@
       events.push(newEvent);
     {% endfor %}
     
+{% raw %}
     //Find the min and max dates in our events array
     var minDate = d3.min(events, function(d) {return d.date.getTime();})
     if(events[0].hasFollowDate) {
@@ -173,7 +175,7 @@
                 .text(tick.__data__.firstFieldDetail);
       } else {
         timeline.select("#firstFieldDetail")
-                .text(detailFormat(tick.__data.date));
+                .text(detailFormat(tick.__data__.date));
       }
       if (tick.__data__.secondFieldDetail.length > 0 || !tick.__data__.hasFollowDate) {
         timeline.select("#secondFieldDetail")
@@ -251,3 +253,6 @@
     </text>
 
   </svg>
+</body>
+</html>
+{% endraw %}
