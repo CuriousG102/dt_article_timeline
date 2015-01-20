@@ -71,7 +71,8 @@
 
     var markerFormat = d3.time.format("%B");
     var detailFormat = d3.time.format("%B %e");
-    var markerYearFormat = d3.time.format("%Y")
+    var markerYearFormat = d3.time.format("%Y");
+    var dateLabelFormat = d3.time.format("%B %e");
     function event() {
       this.firstFieldLabel="";
       this.firstFieldDetail="";
@@ -252,6 +253,8 @@
     var tickWidth = 23;
     var tickHeight = 5;
     var widthOfTimeline= 7;
+    var dateLabelPadding = 14;
+    var dateLabelXPos = 80;
     var vertScale = d3.scale.linear()
         .domain([minDate, maxDate])
         .range([verticalOffsetOfTimeline, 
@@ -259,8 +262,26 @@
 
     // draw everything in timeline once the window loads :-)
     window.onload = function() {
+      var dateLabels = [];
+      for (var i = 0; i < events.length; i++) {
+        dateLabels.push({ text:dateLabelFormat(events[i].date),
+                            x:dateLabelXPos,
+                            y:vertScale(events[i].date.getTime()),
+                            offset:false
+                                            }); 
+      }
+      console.log(dateLabels);
+      for (var i = dateLabels.length - 2; i >= 1; i--) {
+        console.log(i);
+        if (dateLabels[i].y - dateLabels[i-1].y < dateLabelPadding) {
+          dateLabels[i-1].y = dateLabels[i] - 14;
+          dateLabels[i-1].offset = true;
+        }
+      }
+
       var timeline = d3.select(".timeline");
-      var ticks = timeline.selectAll(".tick")
+      var tickGroup = timeline.append("g");
+      var ticks = tickGroup.selectAll(".tick")
           .data(events)
         .enter().append("rect")
           .attr("x", tickOffset)

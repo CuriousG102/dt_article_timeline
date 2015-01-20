@@ -17,6 +17,11 @@
       font-size: 18px;
       font-weight: normal;
     }
+    .timeline .dateLabel {
+      font-size: 14px;
+      fill: gray;
+      font-weight:normal;
+    }
     .timeline .fieldLabel {
       fill: rgb(204, 102, 0);
     }
@@ -71,7 +76,8 @@
 
     var markerFormat = d3.time.format("%B");
     var detailFormat = d3.time.format("%B %e");
-    var markerYearFormat = d3.time.format("%Y")
+    var markerYearFormat = d3.time.format("%Y");
+    var dateLabelFormat = d3.time.format("%B %e");
     function event() {
       this.firstFieldLabel="";
       this.firstFieldDetail="";
@@ -135,6 +141,8 @@
     var tickWidth = 23;
     var tickHeight = 5;
     var widthOfTimeline= 7;
+    var dateLabelPadding = 14;
+    var dateLabelXPos = 80;
     var vertScale = d3.scale.linear()
         .domain([minDate, maxDate])
         .range([verticalOffsetOfTimeline, 
@@ -142,8 +150,34 @@
 
     // draw everything in timeline once the window loads :-)
     window.onload = function() {
+      var dateLabels = [];
+      for (var i = 0; i < events.length; i++) {
+        dateLabels.push({ text:dateLabelFormat(events[i].date),
+                            x:dateLabelXPos,
+                            y:vertScale(events[i].date.getTime()),
+                            offset:false
+                                            }); 
+      }
+      console.log(dateLabels);
+      for (var i = dateLabels.length - 2; i >= 1; i--) {
+        console.log(i);
+        if (dateLabels[i].y - dateLabels[i-1].y < dateLabelPadding) {
+          dateLabels[i-1].y = dateLabels[i] - 14;
+          dateLabels[i-1].offset = true;
+        }
+      }
+
       var timeline = d3.select(".timeline");
-      var ticks = timeline.selectAll(".tick")
+      var dateLabelGroup = timeline.append("g");
+      var dateLabelsEls = dateLabelGroup.selectAll(".dateLabel")
+          .data(dateLabels)
+        .enter().append("text")
+          .attr("x", function(d) { return d.x })
+          .attr("y", function(d) { return d.y })
+          .attr("text-anchor", "end")
+          .attr("")
+      var tickGroup = timeline.append("g");
+      var ticks = tickGroup.selectAll(".tick")
           .data(events)
         .enter().append("rect")
           .attr("x", tickOffset)
@@ -152,6 +186,7 @@
           .attr("height", tickHeight)
           .attr("onmouseover", "loadData(this)")
           .attr("class", "tick");
+      tickGroup.selectAll()
       loadData(ticks[0][0])
 
       timeline.select("#beginMarker")
