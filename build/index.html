@@ -1,4 +1,4 @@
-{% raw %}
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -87,32 +87,152 @@
       this.followDate=new Date();
       this.imageLink="";
     };
-{% endraw %}
+
     //Populate events array
     var events = []
-    {% for row in COPY.Events %}
-      var newEvent = new event()
-      newEvent.firstFieldLabel="{{row.firstFieldLabel}}";
-      newEvent.firstFieldDetail="{{row.firstFieldDetail}}";
-      newEvent.secondFieldLabel="{{row.secondFieldLabel}}";
-      newEvent.secondFieldDetail="{{row.secondFieldDetail}}";
-      newEvent.thirdFieldLabel="{{row.thirdFieldLabel}}";
-      newEvent.thirdFieldDetail="{{row.thirdFieldDetail}}";
-      newEvent.headline="{{row.headline}}";
-      newEvent.summary_="{{row.summary}}";
-      newEvent.imageLink="{{row.imageLink}}";
-      newEvent.headlineLink="{{row.headlineLink}}";
-      {% if row.followYear %}
-        newEvent.hasFollowDate=true;
-        newEvent.followDate=new Date({{row.followYear}},
-                                     {{row.followMonth}} - 1,
-                                     {{row.followDay}});
-      {% endif %}
-      newEvent.date = new Date({{row.year}}, {{row.month}} - 1, {{row.day}});
-      events.push(newEvent);
-    {% endfor %}
     
-{% raw %}
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Leasing Office Opens:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="";
+      newEvent.thirdFieldDetail="";
+      newEvent.headline="";
+      newEvent.summary_="Pointe on Rio leasing office opens. The building, located on Rio Grande Street, is scheduled to open on Aug. 16, before the start of the fall 2014 semester. The complex was still under construction by the end of the summer.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="";
+      
+      newEvent.date = new Date(2013, 11 - 1, 13);
+      events.push(newEvent);
+    
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Announcement Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="New Move-In Date:";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="DT Coverage By:";
+      newEvent.thirdFieldDetail="Eleanor Dearman";
+      newEvent.headline="Unfinished apartment complex relocates students to Dobie";
+      newEvent.summary_="Because of ongoing construction, Pointe on Rio delays its move-in date to Oct. 15, according to an email Asset Campus Housing sent to leaseholders on July 24. The email gave two options for alternative housing: live at the Dobie Center off-campus residence hall rent-free, or receive a rent abatement worth twice the amount of residents' daily rent and stay at outside housing. Pointe on Rio management also gives leaseholders the option of opting out of their lease for free, after Oct. 15.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="http://www.dailytexanonline.com/2014/08/27/unfinished-apartment-complex-relocates-students-to-dobie";
+      
+        newEvent.hasFollowDate=true;
+        newEvent.followDate=new Date(2014,
+                                     10 - 1,
+                                     15);
+      
+      newEvent.date = new Date(2014, 7 - 1, 24);
+      events.push(newEvent);
+    
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Initial Move-In Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="";
+      newEvent.thirdFieldDetail="";
+      newEvent.headline="";
+      newEvent.summary_="Pointe on Rio was originally scheduled to open on Aug. 16, but in July, management delayed the move-in date to Oct. 15.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="";
+      
+      newEvent.date = new Date(2014, 8 - 1, 16);
+      events.push(newEvent);
+    
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Announcement Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="DT Coverage By:";
+      newEvent.thirdFieldDetail="Eleanor Dearman";
+      newEvent.headline="Pointe on Rio leaseholders say construction delays likely to continue";
+      newEvent.summary_="The Daily Texan reports on indications that construction delays are likely to continue, though Pointe on Rio managers decline to comment on the situation. Ten days later, management will officially delay move-in by another three months.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="http://www.dailytexan.com/";
+      
+      newEvent.date = new Date(2014, 9 - 1, 9);
+      events.push(newEvent);
+    
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Announcement Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="New Move-In Date:";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="DT Coverage By:";
+      newEvent.thirdFieldDetail="Eleanor Dearman";
+      newEvent.headline="Pointe on Rio futher delays move-in to January";
+      newEvent.summary_="Pointe on Rio management sends an email on Sept. 19 notifying leaseholders that move-in is now delayed to Jan. 10. The email cites 'city inspections and unforeseen construction delays' as the cause for the delay. Pointe on Rio management gives leaseholders the option to continue living at Dobie Center or at their outside housing accommodations, or to cancel their lease before Oct. 21.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="http://www.dailytexanonline.com/2014/09/26/pointe-on-rio-futher-delays-move-in-to-january";
+      
+        newEvent.hasFollowDate=true;
+        newEvent.followDate=new Date(2015,
+                                     1 - 1,
+                                     10);
+      
+      newEvent.date = new Date(2014, 9 - 1, 19);
+      events.push(newEvent);
+    
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Announcement Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="DT Coverage By:";
+      newEvent.thirdFieldDetail="Samantha Ketterer";
+      newEvent.headline="";
+      newEvent.summary_="On Jan. 2, Pointe on Rio management extends its room reservations at Dobie to Jan. 17, according to an email that Pointe on Rio managers sent to leaseholders. In the email, management said although they are taking 'precautionary measures,' they are still optimistic about a Jan. 10 move-in.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="";
+      
+      newEvent.date = new Date(2015, 1 - 1, 2);
+      events.push(newEvent);
+    
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Announcement Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="New Move-In Date:";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="DT Coverage By:";
+      newEvent.thirdFieldDetail="Samantha Ketterer";
+      newEvent.headline="Pointe on Rio apartment building postpones move-in day for third time";
+      newEvent.summary_="Pointe on Rio pushes back the move-in date for residents again, to Jan. 17, according to an email sent Jan. 7. The email attributes 'longer than anticipated delays with the City's inspections' as the reason for the change.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="http://www.dailytexanonline.com/2015/01/09/pointe-on-rio-apartment-building-postpones-move-in-day-for-third-time";
+      
+        newEvent.hasFollowDate=true;
+        newEvent.followDate=new Date(2015,
+                                     1 - 1,
+                                     17);
+      
+      newEvent.date = new Date(2015, 1 - 1, 7);
+      events.push(newEvent);
+    
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Announcement Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="New Move-In Date:";
+      newEvent.secondFieldDetail="";
+      newEvent.thirdFieldLabel="DT Coverage By:";
+      newEvent.thirdFieldDetail="Samantha Ketterer";
+      newEvent.headline="Delayed again: Pointe on Rio managers postpone move-in day for the fourth time";
+      newEvent.summary_="In an email sent to leaseholders, managers say the building will open Jan. 24, four days after the start of the spring semester. This is the fourth delay. Managers say they are waiting to receive a certificate of occupancy because of an 'inability to get sidewalks/drives poured,' most likely because of inclement weather. Stays at Dobie continue another week, and the email says Pointe on Rio will pro-rate leaseholders' rents from Jan. 10 until the day of move-in.";
+      newEvent.imageLink="";
+      newEvent.headlineLink="http://www.dailytexanonline.com/2015/01/14/delayed-again-pointe-on-rio-managers-change-move-in-day-for-the-fourth-time";
+      
+        newEvent.hasFollowDate=true;
+        newEvent.followDate=new Date(2015,
+                                     1 - 1,
+                                     24);
+      
+      newEvent.date = new Date(2015, 1 - 1, 14);
+      events.push(newEvent);
+    
+    
+
     //Find the min and max dates in our events array
     var minDate = d3.min(events, function(d) {return d.date.getTime();})
     var maxDate = d3.max(events, function(d) {
@@ -284,4 +404,3 @@
   </svg>
 </body>
 </html>
-{% endraw %}
