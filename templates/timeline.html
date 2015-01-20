@@ -129,7 +129,7 @@
     
 
     //draw ticks (things that mark dates) on the timeline
-    var heightOfTimeLine=390;
+    var heightOfTimeLine=640;
     var verticalOffsetOfTimeline=5;
     var tickOffset = 107;
     var tickWidth = 23;
@@ -234,7 +234,7 @@
       timeline.select(".photoAttributionLink")
               .attr("xlink:href", tick.__data__.photoAttributionLink);
       var summaryText = textWrap(tick.__data__.summary_, 55);
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 11; i++) {
         timeline.select("#summaryLine" + (i + 1))
               .text(summaryText[i]);
       }
@@ -243,16 +243,16 @@
     }
 
   </script>
-  <svg width="660" height ="400" class="timeline">
+  <svg width="660" height ="650" class="timeline">
     <text x="90" y="20" class="timelineMarker" id="beginMarker" text-anchor="end">
     </text>
     <text x="90" y="47" class="timelineMarker" id="beginMarkerYear" text-anchor="end">
     </text>
-    <text x="90" y="360" class="timelineMarker" id="endMarker" text-anchor="end">
+    <text x="90" y="610" class="timelineMarker" id="endMarker" text-anchor="end">
     </text>
-    <text x="90" y="387" class="timelineMarker" id="endMarkerYear" text-anchor="end">
+    <text x="90" y="637" class="timelineMarker" id="endMarkerYear" text-anchor="end">
     </text>
-    <rect x="100" y="5" width="7" height="390" fill="black" />
+    <rect x="100" y="5" width="7" height="640" fill="black" />
     <image x="150" y="15" width="300" height="225" id="image"/>
     <text x="470" y="30" class="fieldLabel" id="firstFieldLabel">
     </text>
@@ -286,10 +286,22 @@
     </text>
     <text x="150" y="390" class="summaryLine" id="summaryLine5">
     </text>
-    <text x="600" y="375" font-size="40px" font-family="Times New Roman, Times, serif" font-weight="bold">
+    <text x="150" y="410" class="summaryLine" id="summaryLine6">
+    </text>
+    <text x="150" y="430" class="summaryLine" id="summaryLine7">
+    </text>
+    <text x="150" y="450" class="summaryLine" id="summaryLine8">
+    </text>
+    <text x="150" y="470" class="summaryLine" id="summaryLine9">
+    </text>
+    <text x="150" y="490" class="summaryLine" id="summaryLine10">
+    </text>
+    <text x="150" y="510" class="summaryLine" id="summaryLine11">
+    </text>
+    <text x="600" y="625" font-size="40px" font-family="Times New Roman, Times, serif" font-weight="bold">
       DT
     </text>
-    <text x="560" y="398" font-size="20px" font-family="Times New Roman, Times, serif">
+    <text x="560" y="648" font-size="20px" font-family="Times New Roman, Times, serif">
       Interactives
     </text>
 
