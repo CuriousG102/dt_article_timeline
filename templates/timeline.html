@@ -31,9 +31,9 @@
       font-weight:normal;
     }
     .timeline .followTick, .followLine {
-      fill: #B20000;
+      fill: rgb(204, 102, 0);
     }
-    .timeline #fieldLabel {
+    .timeline #fieldLabel, .tick:hover {
       fill: rgb(204, 102, 0);
     }
     .headlineLink:hover, .photoAttributionLink:hover {
@@ -129,8 +129,8 @@
     
 
     //draw ticks (things that mark dates) on the timeline
-    var heightOfTimeLine=640;
-    var verticalOffsetOfTimeline=5;
+    var heightOfTimeLine=535;
+    var verticalOffsetOfTimeline=55;
     var tickOffset = 107;
     var tickWidth = 23;
     var tickHeight = 5;
@@ -150,7 +150,8 @@
           .attr("y", function(d) { return vertScale(d.date.getTime()); })
           .attr("width", tickWidth)
           .attr("height", tickHeight)
-          .attr("onmouseover", "loadData(this)");
+          .attr("onmouseover", "loadData(this)")
+          .attr("class", "tick");
       loadData(ticks[0][0])
 
       timeline.select("#beginMarker")
@@ -171,8 +172,10 @@
     }
 
     function loadData(tick) {
+      d3.selectAll(".tick").attr("fill", "black")
       var timeline = d3.selectAll(".timeline");
       if (tick.__data__.hasFollowDate) {
+        tick.setAttribute("fill", "rgb(204, 102, 0)")
         var followTick = timeline.selectAll(".followTick")
             .data([{date:tick.__data__.followDate}], date_key);
         followTick
@@ -252,7 +255,7 @@
     </text>
     <text x="90" y="637" class="timelineMarker" id="endMarkerYear" text-anchor="end">
     </text>
-    <rect x="100" y="5" width="7" height="640" fill="black" />
+    <rect x="100" y="55" width="7" height="535" fill="black" />
     <image x="150" y="15" width="300" height="225" id="image"/>
     <text x="470" y="30" class="fieldLabel" id="firstFieldLabel">
     </text>
