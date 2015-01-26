@@ -243,6 +243,28 @@
       newEvent.date = new Date(2015, 1 - 1, 14);
       events.push(newEvent);
     
+      var newEvent = new event()
+      newEvent.firstFieldLabel="Announcement Date:";
+      newEvent.firstFieldDetail="";
+      newEvent.secondFieldLabel="New Move-In Date:";
+      newEvent.secondFieldDetail="Before Jan. 31";
+      newEvent.thirdFieldLabel="DT Coverage By:";
+      newEvent.thirdFieldDetail="Samantha Ketterer";
+      newEvent.headline="Pointe on Rio fails to meet ADA standards, leading to fifth move-in day delay";
+      newEvent.summary_="On Jan. 23, the fire marshall and building inspector decline to grant Pointe a certificate of occupancy because the building does not meet standards laid out in the Americans with Disabilities Act. Two of the building's wheelchair-accessible exit pathways have not been poured with concrete because of weather delays. Pointe on Rio managers sends an email to leaseholders announcing another delay.";
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2015-01-23_Pointe_on_rio_Charlotte_Carpenter42762_timeline.jpg";
+      newEvent.headlineLink="http://www.dailytexanonline.com/2015/01/23/pointe-on-rio-fails-to-meet-ada-standards-leading-to-fifth-move-in-day-delay";
+      newEvent.photoAttribution="Charlotte Carpenter";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/charlotte-carpenter"
+      
+        newEvent.hasFollowDate=true;
+        newEvent.followDate=new Date(2015,
+                                     1 - 1,
+                                     31);
+      
+      newEvent.date = new Date(2015, 1 - 1, 23);
+      events.push(newEvent);
+    
     
 
     //Find the min and max dates in our events array
