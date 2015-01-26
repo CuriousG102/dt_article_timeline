@@ -10,6 +10,10 @@
       font-size: 20px;
       font-weight: bold;
     }
+
+    .timelineMarker {
+      font-size:18px;
+    }
     .timeline .headline {
       font-size: 22px;
     }
@@ -19,7 +23,6 @@
     }
     .timeline .dateLabel {
       font-size: 14px;
-      fill: gray;
       font-weight:normal;
     }
     .timeline .fieldLabel {
@@ -35,10 +38,8 @@
       font-size: 18px;
       font-weight:normal;
     }
-    .timeline .followTick, .followLine {
-      fill: rgb(204, 102, 0);
-    }
-    .timeline #fieldLabel, .tick:hover {
+    .timeline #fieldLabel, .tick:hover, .tickGroup:hover, .followTick,
+    .followLine, .dateLabel:hover {
       fill: rgb(204, 102, 0);
     }
     .headlineLink:hover, .photoAttributionLink:hover {
@@ -74,9 +75,8 @@
       return textArray;      
     }
 
-    var markerFormat = d3.time.format("%B");
+    var markerFormat = d3.time.format("%B %Y");
     var detailFormat = d3.time.format("%B %e");
-    var markerYearFormat = d3.time.format("%Y");
     var dateLabelFormat = d3.time.format("%B %e");
     function event() {
       this.firstFieldLabel="";
@@ -137,11 +137,12 @@
     //draw ticks (things that mark dates) on the timeline
     var heightOfTimeLine=535;
     var verticalOffsetOfTimeline=55;
+    var timelineX = 100;
     var tickOffset = 107;
     var tickWidth = 23;
     var tickHeight = 5;
     var widthOfTimeline= 7;
-    var dateLabelPadding = 14;
+    var dateLabelPadding = 25;
     var dateLabelXPos = 80;
     var vertScale = d3.scale.linear()
         .domain([minDate, maxDate])
@@ -154,49 +155,53 @@
       for (var i = 0; i < events.length; i++) {
         dateLabels.push({ text:dateLabelFormat(events[i].date),
                             x:dateLabelXPos,
-                            y:vertScale(events[i].date.getTime()),
+                            y:vertScale(events[i].date.getTime()) + 8,
                             offset:false
                                             }); 
       }
-      console.log(dateLabels);
-      for (var i = dateLabels.length - 2; i >= 1; i--) {
-        console.log(i);
+      for (var i = dateLabels.length - 1; i >= 1; i--) {
         if (dateLabels[i].y - dateLabels[i-1].y < dateLabelPadding) {
-          dateLabels[i-1].y = dateLabels[i] - 14;
+          dateLabels[i-1].y = dateLabels[i].y - dateLabelPadding;
           dateLabels[i-1].offset = true;
         }
       }
+      for (var i = 0; i < events.length; i++) {
+        events[i].dateLabel = dateLabels[i];
+      }
 
       var timeline = d3.select(".timeline");
-      var dateLabelGroup = timeline.append("g");
-      var dateLabelsEls = dateLabelGroup.selectAll(".dateLabel")
-          .data(dateLabels)
-        .enter().append("text")
-          .attr("x", function(d) { return d.x })
-          .attr("y", function(d) { return d.y })
-          .attr("text-anchor", "end")
-          .attr("")
-      var tickGroup = timeline.append("g");
-      var ticks = tickGroup.selectAll(".tick")
+      var tickGroup = timeline.selectAll(".tick")
           .data(events)
-        .enter().append("rect")
-          .attr("x", tickOffset)
-          .attr("y", function(d) { return vertScale(d.date.getTime()); })
-          .attr("width", tickWidth)
-          .attr("height", tickHeight)
-          .attr("onmouseover", "loadData(this)")
-          .attr("class", "tick");
-      tickGroup.selectAll()
-      loadData(ticks[0][0])
+        .enter().append("g")
+          .attr("class", "tickGroup")
+          .attr("onmouseover", "loadData(this)");
+      tickGroup.append("rect")
+                .attr("x", tickOffset)
+                .attr("y", function(d) { return vertScale(d.date.getTime()); })
+                .attr("width", tickWidth)
+                .attr("height", tickHeight)
+                .attr("class", "tick");
+      tickGroup.append("text")
+               .attr("x", function(d) { return d.dateLabel.x; })
+               .attr("y", function(d) { return d.dateLabel.y; })
+               .attr("text-anchor", "end")
+               .attr("class", "dateLabel")
+               .text( function(d) { return d.dateLabel.text; });
+      tickGroup.append("line")
+               .attr("stroke-width", "2")
+               .attr("x1", function(d) { return d.dateLabel.x; })
+               .attr("y1", function(d) { return d.dateLabel.y; })
+               .attr("x2", timelineX)
+               .attr("y2", function(d) { return vertScale(d.date.getTime());})
+               .attr("fill", "black")
+               .attr("class", "dateLabelLine");
+
+      loadData(tickGroup[0][0])
 
       timeline.select("#beginMarker")
               .text(markerFormat(new Date(minDate)));
-      timeline.select("#beginMarkerYear")
-              .text(markerYearFormat(new Date(minDate)));
       timeline.select("#endMarker")
               .text(markerFormat(new Date(maxDate)));
-      timeline.select("#endMarkerYear")
-              .text(markerYearFormat(new Date(maxDate)));
     }
     
     function date_key(d, i) {
@@ -206,13 +211,19 @@
       return d.text;
     }
 
-    function loadData(tick) {
-      d3.selectAll(".tick").attr("fill", "black")
+    function loadData(tickGroup) {
+      d3.selectAll(".tick").attr("fill", "black");
+      d3.selectAll(".tickGroup").attr("fill", "black");
+      d3.selectAll(".dateLabel").attr("fill", "gray");
+      d3.selectAll(".dateLabelLine").attr("fill", "black");
       var timeline = d3.selectAll(".timeline");
-      if (tick.__data__.hasFollowDate) {
-        tick.setAttribute("fill", "rgb(204, 102, 0)")
+      tickGroup.childNodes[0].setAttribute("fill", "rgb(204, 102, 0)");
+      tickGroup.childNodes[1].setAttribute("fill", "rgb(204, 102, 0)");
+      tickGroup.childNodes[2].setAttribute("fill", "rgb(204, 102, 0)");
+      if (tickGroup.__data__.hasFollowDate) {
+        tickGroup.setAttribute("fill", "rgb(204, 102, 0)");
         var followTick = timeline.selectAll(".followTick")
-            .data([{date:tick.__data__.followDate}], date_key);
+            .data([{date:tickGroup.__data__.followDate}], date_key);
         followTick
           .enter().append("rect")
             .attr("x", tickOffset)
@@ -223,7 +234,7 @@
         followTick.exit().remove();
 
         var followLine = timeline.selectAll(".followLine")
-            .data([{date:tick.__data__.date, followDate:tick.__data__.followDate}], date_key);
+            .data([{date:tickGroup.__data__.date, followDate:tickGroup.__data__.followDate}], date_key);
         followLine
           .enter().append("rect")
             .attr("x", tickOffset)
@@ -238,57 +249,54 @@
         timeline.selectAll(".followTick").remove();
         timeline.selectAll(".followLine").remove();
       }
-      if (tick.__data__.firstFieldDetail.length > 0) {
+      if (tickGroup.__data__.firstFieldDetail.length > 0) {
         timeline.select("#firstFieldDetail")
-                .text(tick.__data__.firstFieldDetail);
+                .text(tickGroup.__data__.firstFieldDetail);
       } else {
         timeline.select("#firstFieldDetail")
-                .text(detailFormat(tick.__data__.date));
+                .text(detailFormat(tickGroup.__data__.date));
       }
-      if (tick.__data__.secondFieldDetail.length > 0 || !tick.__data__.hasFollowDate) {
+      if (tickGroup.__data__.secondFieldDetail.length > 0 || !tickGroup.__data__.hasFollowDate) {
         timeline.select("#secondFieldDetail")
-                .text(tick.__data__.secondFieldDetail);
+                .text(tickGroup.__data__.secondFieldDetail);
       } else {
         timeline.select("#secondFieldDetail")
-                .text(detailFormat(tick.__data__.followDate));
+                .text(detailFormat(tickGroup.__data__.followDate));
       }
       timeline.select("#thirdFieldDetail")
-              .text(tick.__data__.thirdFieldDetail);
+              .text(tickGroup.__data__.thirdFieldDetail);
       timeline.select("#firstFieldLabel")
-              .text(tick.__data__.firstFieldLabel);
+              .text(tickGroup.__data__.firstFieldLabel);
       timeline.select("#secondFieldLabel")
-              .text(tick.__data__.secondFieldLabel);
+              .text(tickGroup.__data__.secondFieldLabel);
       timeline.select("#thirdFieldLabel")
-              .text(tick.__data__.thirdFieldLabel);
-      var headlineText = textWrap(tick.__data__.headline, 51);
+              .text(tickGroup.__data__.thirdFieldLabel);
+      var headlineText = textWrap(tickGroup.__data__.headline, 51);
       timeline.select("#headlineLine1")
               .text(headlineText[0]);
       timeline.select("#headlineLine2")
               .text(headlineText[1]);
       timeline.select(".headlineLink")
-              .attr("xlink:href", tick.__data__.headlineLink);
+              .attr("xlink:href", tickGroup.__data__.headlineLink);
       timeline.select(".photoAttribution")
-              .text("Photo By: " + tick.__data__.photoAttribution);
+              .text("Photo By: " + tickGroup.__data__.photoAttribution);
       timeline.select(".photoAttributionLink")
-              .attr("xlink:href", tick.__data__.photoAttributionLink);
-      var summaryText = textWrap(tick.__data__.summary_, 55);
+              .attr("xlink:href", tickGroup.__data__.photoAttributionLink);
+      var summaryText = textWrap(tickGroup.__data__.summary_, 55);
       for (var i = 0; i < 11; i++) {
         timeline.select("#summaryLine" + (i + 1))
               .text(summaryText[i]);
       }
       timeline.select("#image")
-              .attr("xlink:href", tick.__data__.imageLink)
+              .attr("xlink:href", tickGroup.__data__.imageLink)
     }
 
   </script>
   <svg width="660" height ="650" class="timeline">
-    <text x="90" y="20" class="timelineMarker" id="beginMarker" text-anchor="end">
+    <text x="130" y="40" class="timelineMarker" id="beginMarker" text-anchor="end">
     </text>
-    <text x="90" y="47" class="timelineMarker" id="beginMarkerYear" text-anchor="end">
     </text>
-    <text x="90" y="610" class="timelineMarker" id="endMarker" text-anchor="end">
-    </text>
-    <text x="90" y="637" class="timelineMarker" id="endMarkerYear" text-anchor="end">
+    <text x="130" y="610" class="timelineMarker" id="endMarker" text-anchor="end">
     </text>
     <rect x="100" y="55" width="7" height="535" fill="black" />
     <image x="150" y="15" width="300" height="225" id="image"/>

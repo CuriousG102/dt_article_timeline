@@ -10,12 +10,20 @@
       font-size: 20px;
       font-weight: bold;
     }
+
+    .timelineMarker {
+      font-size:18px;
+    }
     .timeline .headline {
       font-size: 22px;
     }
     .timeline .summaryLine {
       font-size: 18px;
       font-weight: normal;
+    }
+    .timeline .dateLabel {
+      font-size: 14px;
+      font-weight:normal;
     }
     .timeline .fieldLabel {
       fill: rgb(204, 102, 0);
@@ -30,10 +38,8 @@
       font-size: 18px;
       font-weight:normal;
     }
-    .timeline .followTick, .followLine {
-      fill: rgb(204, 102, 0);
-    }
-    .timeline #fieldLabel, .tick:hover {
+    .timeline #fieldLabel, .tick:hover, .tickGroup:hover, .followTick,
+    .followLine, .dateLabel:hover {
       fill: rgb(204, 102, 0);
     }
     .headlineLink:hover, .photoAttributionLink:hover {
@@ -69,9 +75,8 @@
       return textArray;      
     }
 
-    var markerFormat = d3.time.format("%B");
+    var markerFormat = d3.time.format("%B %Y");
     var detailFormat = d3.time.format("%B %e");
-    var markerYearFormat = d3.time.format("%Y");
     var dateLabelFormat = d3.time.format("%B %e");
     function event() {
       this.firstFieldLabel="";
@@ -97,16 +102,21 @@
       var newEvent = new event()
       newEvent.firstFieldLabel="Leasing Office Opens:";
       newEvent.firstFieldDetail="";
-      newEvent.secondFieldLabel="";
+      newEvent.secondFieldLabel="Move-In Date:";
       newEvent.secondFieldDetail="";
       newEvent.thirdFieldLabel="";
       newEvent.thirdFieldDetail="";
       newEvent.headline="";
       newEvent.summary_="Pointe on Rio leasing office opens. The building, located on Rio Grande Street, is scheduled to open on Aug. 16, before the start of the fall 2014 semester. The complex was still under construction by the end of the summer.";
-      newEvent.imageLink="";
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2014-08-28_pointe_on_rio_lauren.ussery19943timeline.jpg";
       newEvent.headlineLink="";
-      newEvent.photoAttribution="";
-      newEvent.photoAttributionLink=""
+      newEvent.photoAttribution="Lauren Ussery";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/lauren-ussery"
+      
+        newEvent.hasFollowDate=true;
+        newEvent.followDate=new Date(2014,
+                                     8 - 1,
+                                     16);
       
       newEvent.date = new Date(2013, 11 - 1, 13);
       events.push(newEvent);
@@ -120,10 +130,10 @@
       newEvent.thirdFieldDetail="Eleanor Dearman";
       newEvent.headline="Unfinished apartment complex relocates students to Dobie";
       newEvent.summary_="Because of ongoing construction, Pointe on Rio delays its move-in date to Oct. 15, according to an email Asset Campus Housing sent to leaseholders on July 24. The email gave two options for alternative housing: live at the Dobie Center off-campus residence hall rent-free, or receive a rent abatement worth twice the amount of residents' daily rent and stay at outside housing. Pointe on Rio management also gives leaseholders the option of opting out of their lease for free, after Oct. 15.";
-      newEvent.imageLink="";
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2014-09-26_Pointe_On_Rio_Graeme.Hamilton21241timeline.jpg";
       newEvent.headlineLink="http://www.dailytexanonline.com/2014/08/27/unfinished-apartment-complex-relocates-students-to-dobie";
-      newEvent.photoAttribution="";
-      newEvent.photoAttributionLink=""
+      newEvent.photoAttribution="Graeme Hamilton";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/graeme-hamilton"
       
         newEvent.hasFollowDate=true;
         newEvent.followDate=new Date(2014,
@@ -142,10 +152,10 @@
       newEvent.thirdFieldDetail="Eleanor Dearman";
       newEvent.headline="Pointe on Rio leaseholders say construction delays likely to continue";
       newEvent.summary_="The Daily Texan reports on indications that construction delays are likely to continue, though Pointe on Rio managers decline to comment on the situation. Ten days later, management will officially delay move-in by another three months.";
-      newEvent.imageLink="";
-      newEvent.headlineLink="http://www.dailytexan.com/";
-      newEvent.photoAttribution="";
-      newEvent.photoAttributionLink=""
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2014-11-04_pointe_on_rio_lauren.ussery078.jpg";
+      newEvent.headlineLink="http://www.dailytexanonline.com/2014/09/16/pointe-on-rio-leaseholders-say-construction-delays-likely-to-continue";
+      newEvent.photoAttribution="Lauren Ussery";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/lauren-ussery"
       
       newEvent.date = new Date(2014, 9 - 1, 9);
       events.push(newEvent);
@@ -158,11 +168,11 @@
       newEvent.thirdFieldLabel="DT Coverage By:";
       newEvent.thirdFieldDetail="Eleanor Dearman";
       newEvent.headline="Pointe on Rio futher delays move-in to January";
-      newEvent.summary_="Pointe on Rio management sends an email on Sept. 19 notifying leaseholders that move-in is now delayed to Jan. 10. The email cites 'city inspections and unforeseen construction delays' as the cause for the delay. Pointe on Rio management gives leaseholders the option to continue living at Dobie Center or at their outside housing accommodations, or to cancel their lease before Oct. 21.";
-      newEvent.imageLink="";
+      newEvent.summary_="Pointe on Rio management sends an email on Sept. 19 notifying leaseholders that move-in is now delayed to Jan. 10. The email cites ''city inspections and unforeseen construction delays'' as the cause for the delay. Pointe on Rio management gives leaseholders the option to continue living at Dobie Center or at their outside housing accommodations, or to cancel their lease before Oct. 21.";
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2014-11-04_pointe_on_rio_lauren.ussery094.jpg";
       newEvent.headlineLink="http://www.dailytexanonline.com/2014/09/26/pointe-on-rio-futher-delays-move-in-to-january";
-      newEvent.photoAttribution="";
-      newEvent.photoAttributionLink=""
+      newEvent.photoAttribution="Lauren Ussery";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/lauren-ussery"
       
         newEvent.hasFollowDate=true;
         newEvent.followDate=new Date(2015,
@@ -180,11 +190,11 @@
       newEvent.thirdFieldLabel="DT Coverage By:";
       newEvent.thirdFieldDetail="Samantha Ketterer";
       newEvent.headline="";
-      newEvent.summary_="On Jan. 2, Pointe on Rio management extends its room reservations at Dobie to Jan. 17, according to an email that Pointe on Rio managers sent to leaseholders. In the email, management said although they are taking 'precautionary measures,' they are still optimistic about a Jan. 10 move-in.";
-      newEvent.imageLink="";
+      newEvent.summary_="On Jan. 2, Pointe on Rio management extends its room reservations at Dobie to Jan. 17, according to an email that Pointe on Rio managers sent to leaseholders. In the email, management said although they are taking ''precautionary measures,'' they are still optimistic about a Jan. 10 move-in.";
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2014-11-04_pointe_on_rio_lauren.ussery065.jpg";
       newEvent.headlineLink="";
-      newEvent.photoAttribution="";
-      newEvent.photoAttributionLink=""
+      newEvent.photoAttribution="Marshall Tidrick";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/marshall-tidrick"
       
       newEvent.date = new Date(2015, 1 - 1, 2);
       events.push(newEvent);
@@ -197,11 +207,11 @@
       newEvent.thirdFieldLabel="DT Coverage By:";
       newEvent.thirdFieldDetail="Samantha Ketterer";
       newEvent.headline="Pointe on Rio apartment building postpones move-in day for third time";
-      newEvent.summary_="Pointe on Rio pushes back the move-in date for residents again, to Jan. 17, according to an email sent Jan. 7. The email attributes 'longer than anticipated delays with the City's inspections' as the reason for the change.";
-      newEvent.imageLink="";
+      newEvent.summary_="Pointe on Rio pushes back the move-in date for residents again, to Jan. 17, according to an email sent Jan. 7. The email attributes ''longer than anticipated delays with the City''s inspections'' as the reason for the change.";
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2015-1-8_Pointe_Construction_Marshall.Tidrick02000timeline.jpg";
       newEvent.headlineLink="http://www.dailytexanonline.com/2015/01/09/pointe-on-rio-apartment-building-postpones-move-in-day-for-third-time";
-      newEvent.photoAttribution="";
-      newEvent.photoAttributionLink=""
+      newEvent.photoAttribution="Marshall Tidrick";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/marshall-tidrick"
       
         newEvent.hasFollowDate=true;
         newEvent.followDate=new Date(2015,
@@ -219,11 +229,11 @@
       newEvent.thirdFieldLabel="DT Coverage By:";
       newEvent.thirdFieldDetail="Samantha Ketterer";
       newEvent.headline="Delayed again: Pointe on Rio managers postpone move-in day for the fourth time";
-      newEvent.summary_="In an email sent to leaseholders, managers say the building will open Jan. 24, four days after the start of the spring semester. This is the fourth delay. Managers say they are waiting to receive a certificate of occupancy because of an 'inability to get sidewalks/drives poured,' most likely because of inclement weather. Stays at Dobie continue another week, and the email says Pointe on Rio will pro-rate leaseholders' rents from Jan. 10 until the day of move-in.";
-      newEvent.imageLink="";
+      newEvent.summary_="In an email sent to leaseholders, managers say the building will open Jan. 24, four days after the start of the spring semester. This is the fourth delay. Managers say they are waiting to receive a certificate of occupancy because of an ''inability to get sidewalks/drives poured,'' most likely because of inclement weather. Stays at Dobie continue another week, and the email says Pointe on Rio will pro-rate leaseholders' rents from Jan. 10 until the day of move-in.";
+      newEvent.imageLink="http://www.dailytexanonline.com/sites/default/files/images/2015/01/2015-1-8_Pointe_Construction_Marshall.Tidrick02005e.jpg";
       newEvent.headlineLink="http://www.dailytexanonline.com/2015/01/14/delayed-again-pointe-on-rio-managers-change-move-in-day-for-the-fourth-time";
-      newEvent.photoAttribution="";
-      newEvent.photoAttributionLink=""
+      newEvent.photoAttribution="Marshall Tidrick";
+      newEvent.photoAttributionLink="http://www.dailytexanonline.com/author/marshall-tidrick"
       
         newEvent.hasFollowDate=true;
         newEvent.followDate=new Date(2015,
@@ -249,11 +259,12 @@
     //draw ticks (things that mark dates) on the timeline
     var heightOfTimeLine=535;
     var verticalOffsetOfTimeline=55;
+    var timelineX = 100;
     var tickOffset = 107;
     var tickWidth = 23;
     var tickHeight = 5;
     var widthOfTimeline= 7;
-    var dateLabelPadding = 14;
+    var dateLabelPadding = 25;
     var dateLabelXPos = 80;
     var vertScale = d3.scale.linear()
         .domain([minDate, maxDate])
@@ -266,40 +277,53 @@
       for (var i = 0; i < events.length; i++) {
         dateLabels.push({ text:dateLabelFormat(events[i].date),
                             x:dateLabelXPos,
-                            y:vertScale(events[i].date.getTime()),
+                            y:vertScale(events[i].date.getTime()) + 8,
                             offset:false
                                             }); 
       }
-      console.log(dateLabels);
-      for (var i = dateLabels.length - 2; i >= 1; i--) {
-        console.log(i);
+      for (var i = dateLabels.length - 1; i >= 1; i--) {
         if (dateLabels[i].y - dateLabels[i-1].y < dateLabelPadding) {
-          dateLabels[i-1].y = dateLabels[i] - 14;
+          dateLabels[i-1].y = dateLabels[i].y - dateLabelPadding;
           dateLabels[i-1].offset = true;
         }
       }
+      for (var i = 0; i < events.length; i++) {
+        events[i].dateLabel = dateLabels[i];
+      }
 
       var timeline = d3.select(".timeline");
-      var tickGroup = timeline.append("g");
-      var ticks = tickGroup.selectAll(".tick")
+      var tickGroup = timeline.selectAll(".tick")
           .data(events)
-        .enter().append("rect")
-          .attr("x", tickOffset)
-          .attr("y", function(d) { return vertScale(d.date.getTime()); })
-          .attr("width", tickWidth)
-          .attr("height", tickHeight)
-          .attr("onmouseover", "loadData(this)")
-          .attr("class", "tick");
-      loadData(ticks[0][0])
+        .enter().append("g")
+          .attr("class", "tickGroup")
+          .attr("onmouseover", "loadData(this)");
+      tickGroup.append("rect")
+                .attr("x", tickOffset)
+                .attr("y", function(d) { return vertScale(d.date.getTime()); })
+                .attr("width", tickWidth)
+                .attr("height", tickHeight)
+                .attr("class", "tick");
+      tickGroup.append("text")
+               .attr("x", function(d) { return d.dateLabel.x; })
+               .attr("y", function(d) { return d.dateLabel.y; })
+               .attr("text-anchor", "end")
+               .attr("class", "dateLabel")
+               .text( function(d) { return d.dateLabel.text; });
+      tickGroup.append("line")
+               .attr("stroke-width", "2")
+               .attr("x1", function(d) { return d.dateLabel.x; })
+               .attr("y1", function(d) { return d.dateLabel.y; })
+               .attr("x2", timelineX)
+               .attr("y2", function(d) { return vertScale(d.date.getTime());})
+               .attr("fill", "black")
+               .attr("class", "dateLabelLine");
+
+      loadData(tickGroup[0][0])
 
       timeline.select("#beginMarker")
               .text(markerFormat(new Date(minDate)));
-      timeline.select("#beginMarkerYear")
-              .text(markerYearFormat(new Date(minDate)));
       timeline.select("#endMarker")
               .text(markerFormat(new Date(maxDate)));
-      timeline.select("#endMarkerYear")
-              .text(markerYearFormat(new Date(maxDate)));
     }
     
     function date_key(d, i) {
@@ -309,13 +333,19 @@
       return d.text;
     }
 
-    function loadData(tick) {
-      d3.selectAll(".tick").attr("fill", "black")
+    function loadData(tickGroup) {
+      d3.selectAll(".tick").attr("fill", "black");
+      d3.selectAll(".tickGroup").attr("fill", "black");
+      d3.selectAll(".dateLabel").attr("fill", "gray");
+      d3.selectAll(".dateLabelLine").attr("fill", "black");
       var timeline = d3.selectAll(".timeline");
-      if (tick.__data__.hasFollowDate) {
-        tick.setAttribute("fill", "rgb(204, 102, 0)")
+      tickGroup.childNodes[0].setAttribute("fill", "rgb(204, 102, 0)");
+      tickGroup.childNodes[1].setAttribute("fill", "rgb(204, 102, 0)");
+      tickGroup.childNodes[2].setAttribute("fill", "rgb(204, 102, 0)");
+      if (tickGroup.__data__.hasFollowDate) {
+        tickGroup.setAttribute("fill", "rgb(204, 102, 0)");
         var followTick = timeline.selectAll(".followTick")
-            .data([{date:tick.__data__.followDate}], date_key);
+            .data([{date:tickGroup.__data__.followDate}], date_key);
         followTick
           .enter().append("rect")
             .attr("x", tickOffset)
@@ -326,7 +356,7 @@
         followTick.exit().remove();
 
         var followLine = timeline.selectAll(".followLine")
-            .data([{date:tick.__data__.date, followDate:tick.__data__.followDate}], date_key);
+            .data([{date:tickGroup.__data__.date, followDate:tickGroup.__data__.followDate}], date_key);
         followLine
           .enter().append("rect")
             .attr("x", tickOffset)
@@ -341,57 +371,54 @@
         timeline.selectAll(".followTick").remove();
         timeline.selectAll(".followLine").remove();
       }
-      if (tick.__data__.firstFieldDetail.length > 0) {
+      if (tickGroup.__data__.firstFieldDetail.length > 0) {
         timeline.select("#firstFieldDetail")
-                .text(tick.__data__.firstFieldDetail);
+                .text(tickGroup.__data__.firstFieldDetail);
       } else {
         timeline.select("#firstFieldDetail")
-                .text(detailFormat(tick.__data__.date));
+                .text(detailFormat(tickGroup.__data__.date));
       }
-      if (tick.__data__.secondFieldDetail.length > 0 || !tick.__data__.hasFollowDate) {
+      if (tickGroup.__data__.secondFieldDetail.length > 0 || !tickGroup.__data__.hasFollowDate) {
         timeline.select("#secondFieldDetail")
-                .text(tick.__data__.secondFieldDetail);
+                .text(tickGroup.__data__.secondFieldDetail);
       } else {
         timeline.select("#secondFieldDetail")
-                .text(detailFormat(tick.__data__.followDate));
+                .text(detailFormat(tickGroup.__data__.followDate));
       }
       timeline.select("#thirdFieldDetail")
-              .text(tick.__data__.thirdFieldDetail);
+              .text(tickGroup.__data__.thirdFieldDetail);
       timeline.select("#firstFieldLabel")
-              .text(tick.__data__.firstFieldLabel);
+              .text(tickGroup.__data__.firstFieldLabel);
       timeline.select("#secondFieldLabel")
-              .text(tick.__data__.secondFieldLabel);
+              .text(tickGroup.__data__.secondFieldLabel);
       timeline.select("#thirdFieldLabel")
-              .text(tick.__data__.thirdFieldLabel);
-      var headlineText = textWrap(tick.__data__.headline, 51);
+              .text(tickGroup.__data__.thirdFieldLabel);
+      var headlineText = textWrap(tickGroup.__data__.headline, 51);
       timeline.select("#headlineLine1")
               .text(headlineText[0]);
       timeline.select("#headlineLine2")
               .text(headlineText[1]);
       timeline.select(".headlineLink")
-              .attr("xlink:href", tick.__data__.headlineLink);
+              .attr("xlink:href", tickGroup.__data__.headlineLink);
       timeline.select(".photoAttribution")
-              .text("Photo By: " + tick.__data__.photoAttribution);
+              .text("Photo By: " + tickGroup.__data__.photoAttribution);
       timeline.select(".photoAttributionLink")
-              .attr("xlink:href", tick.__data__.photoAttributionLink);
-      var summaryText = textWrap(tick.__data__.summary_, 55);
+              .attr("xlink:href", tickGroup.__data__.photoAttributionLink);
+      var summaryText = textWrap(tickGroup.__data__.summary_, 55);
       for (var i = 0; i < 11; i++) {
         timeline.select("#summaryLine" + (i + 1))
               .text(summaryText[i]);
       }
       timeline.select("#image")
-              .attr("xlink:href", tick.__data__.imageLink)
+              .attr("xlink:href", tickGroup.__data__.imageLink)
     }
 
   </script>
   <svg width="660" height ="650" class="timeline">
-    <text x="90" y="20" class="timelineMarker" id="beginMarker" text-anchor="end">
+    <text x="130" y="40" class="timelineMarker" id="beginMarker" text-anchor="end">
     </text>
-    <text x="90" y="47" class="timelineMarker" id="beginMarkerYear" text-anchor="end">
     </text>
-    <text x="90" y="610" class="timelineMarker" id="endMarker" text-anchor="end">
-    </text>
-    <text x="90" y="637" class="timelineMarker" id="endMarkerYear" text-anchor="end">
+    <text x="130" y="610" class="timelineMarker" id="endMarker" text-anchor="end">
     </text>
     <rect x="100" y="55" width="7" height="535" fill="black" />
     <image x="150" y="15" width="300" height="225" id="image"/>
